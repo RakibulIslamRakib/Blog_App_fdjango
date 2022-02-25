@@ -1,0 +1,26 @@
+settings.py
+
+EMAIL_HOST = 'smtp.zoho.com'
+EMAIL_HOST_USER = '############'
+EMAIL_HOST_PASSWORD = '##########'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+views.py
+from django.shortcuts import render
+from django.core.mail import send_mail
+from django.conf import settings
+
+
+def index(request):
+
+	if request.method == 'POST':
+		message = request.POST['message']
+
+		send_mail('Contact Form',
+		 message, 
+		 settings.EMAIL_HOST_USER,
+		 ['ivanovsin11@gmail.com'], 
+		 fail_silently=False)
+	return render(request, 'app/index.html')
